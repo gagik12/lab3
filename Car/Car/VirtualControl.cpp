@@ -59,7 +59,7 @@ bool CVirtualControl::SetGear(std::istream & args)
 {
 	int number;
 	args >> number;
-	std::string output = m_vaz.SetGear(number) ? "Gear: " + std::to_string(m_vaz.GetGear()) : "Error: ";
+	std::string output = m_vaz.SetGear(number) ? "Gear: " + std::to_string(m_vaz.GetGear()) : "Error: Gear can not switch at the moment!";
 	m_output << output << endl;
 	return true;
 }
@@ -68,7 +68,7 @@ bool CVirtualControl::SetSpeed(std::istream & args)
 {
 	int number;
 	args >> number;
-    std::string output = m_vaz.SetSpeed(number) ? "Speed: " + std::to_string(m_vaz.GetSpeed()) : "Error: ";
+    std::string output = m_vaz.SetSpeed(number) ? "Speed: " + std::to_string(m_vaz.GetSpeed()) : "Error: Speed is not the same as a valid gear value!";
 	m_output << "Speed: " << m_vaz.GetSpeed() << endl;
 	return true;
 }
