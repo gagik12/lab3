@@ -20,5 +20,7 @@
 #include <sstream>
 #include <functional>
 #include <map>
+#include <iostream>
+#include <string>
 
 // TODO: reference additional headers your program requires here
