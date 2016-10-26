@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Const.h"
 
+
 class CCar
 {
 public:
