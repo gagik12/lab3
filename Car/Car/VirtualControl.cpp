@@ -43,7 +43,7 @@ bool CVirtualControl::HandleCommand()
 	return true;
 }
 
-bool CVirtualControl::TurnOnEngine(std::istream & args)
+bool CVirtualControl::TurnOnEngine(std::istream & /*args*/)
 {
 	bool isTurnOnEngine = m_vaz.TurnOnEngine();
 	std::string output = isTurnOnEngine ? "Engine is turned on\n" : "Engine is already on!\n";
@@ -74,8 +74,8 @@ bool CVirtualControl::SetSpeed(std::istream & args)
 	int speed;
 	args >> speed;
 	bool isSetSpeed = m_vaz.SetSpeed(speed);
-    std::string output = isSetSpeed ? "Speed: " + std::to_string(m_vaz.GetSpeed()) : "Error: Speed is not the same as a valid gear value!";
-	m_output << "Speed: " << m_vaz.GetSpeed() << endl;
+    std::string output = isSetSpeed ? "Speed: " + std::to_string(m_vaz.GetCurrentSpeed()) : "Error: Speed is not the same as a valid gear value or gear is neutral!";
+	m_output << output << endl;
 	return isSetSpeed;
 }
 
@@ -83,22 +83,22 @@ bool CVirtualControl::Info(std::istream & /*args*/)
 {
 	std::string output = m_vaz.IsTurnOnEngine() ? 
 		"Engine is turned on\n"  
-		"Direction: " + GetDirectionString(m_vaz.GetSpeed()) + "\n"
+		"Direction: " + GetDirectionString(m_vaz.GetDirection()) + "\n"
 		"Gear: " + std::to_string(m_vaz.GetGear()) + "\n" 
-		"Speed: " + std::to_string(m_vaz.GetSpeed())  + "\n"
+		"Speed: " + std::to_string(m_vaz.GetCurrentSpeed())  + "\n"
 		: "Engine is turned off\n";
 	m_output << output;
 	return true; 
 }
 
-std::string CVirtualControl::GetDirectionString(int speed)
+std::string CVirtualControl::GetDirectionString(Direction const& direction)
 {
 	std::string result;
-	if (speed > 0)
+	if (direction == Direction::FORWARD)
 	{
 		result = "Forward";
 	}
-	else if (speed < 0)
+	else if (direction == Direction::BACKWARD)
 	{
 		result = "Backward";
 	}
@@ -108,3 +108,4 @@ std::string CVirtualControl::GetDirectionString(int speed)
 	}
 	return result;
 }
+
